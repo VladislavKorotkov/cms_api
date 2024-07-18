@@ -68,4 +68,10 @@ public class UserServiceImpl implements UserService {
         existingUser.setEmail(userDto.getEmail());
         return userMapper.toDto(userRepository.save(existingUser));
     }
+
+    @Override
+    public User getUser(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(()->new UserNotFoundException("The user was not found"));
+    }
 }

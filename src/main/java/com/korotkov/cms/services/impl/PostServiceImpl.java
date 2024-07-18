@@ -6,10 +6,12 @@ import com.korotkov.cms.mappers.PostMapper;
 import com.korotkov.cms.models.Post;
 import com.korotkov.cms.repositories.PostRepository;
 import com.korotkov.cms.services.PostService;
+import com.korotkov.cms.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,11 +20,14 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
+    private final UserService userService;
 
     @Override
     @Transactional
     public PostDto savePost(PostDto postDto) {
         Post post = postMapper.toEntity(postDto);
+        post.setUser(userService.getUser(postDto.getUserId()));
+        post.setCreatedAt(LocalDateTime.now());
         return postMapper.toDto(postRepository.save(post));
     }
 
@@ -65,6 +70,8 @@ public class PostServiceImpl implements PostService {
         existingPost.setTitle(postDto.getTitle());
         existingPost.setContent(postDto.getContent());
         existingPost.setUpdatedAt(postDto.getUpdatedAt());
+        existingPost.setUser(userService.getUser(postDto.getUserId()));
+        existingPost.setUpdatedAt(LocalDateTime.now());
         return postMapper.toDto(postRepository.save(existingPost));
     }
 }

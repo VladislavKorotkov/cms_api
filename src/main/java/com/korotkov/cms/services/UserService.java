@@ -1,6 +1,7 @@
 package com.korotkov.cms.services;
 
 import com.korotkov.cms.dto.UserDto;
+import com.korotkov.cms.models.User;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface UserService {
     List<UserDto> getAllUsers();
     void deleteUser(Long id);
     UserDto updateUser(Long id, UserDto userDto);
+    User getUser(Long id);
 }
