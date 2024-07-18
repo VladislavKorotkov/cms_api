@@ -17,12 +17,20 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String content;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String content;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
