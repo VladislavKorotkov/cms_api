@@ -16,7 +16,7 @@
 
 1. Клонируйте репозиторий:
    ```sh
-   git clone https://github.com/VladislavKorotkov/cms_api
+   git clone https://github.com/VladislavKorotkov/cms_api.git
 2. Перейдите в директорию проекта:
     ```sh
     cd cms_api
